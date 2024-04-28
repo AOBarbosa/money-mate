@@ -4,7 +4,6 @@ import GitHub from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
 import Nodemailer from 'next-auth/providers/nodemailer'
 
-import { env } from './env'
 import { prisma } from './lib/prisma'
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
@@ -18,20 +17,20 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
     Nodemailer({
-      server: env?.EMAIL_SERVER,
-      from: env?.EMAIL_FROM,
+      server: process.env.EMAIL_SERVER,
+      from: process.env.EMAIL_FROM,
     }),
     GitHub,
-    // GoogleProvider({
-    //   clientId: env?.AUTH_GOOGLE_ID,
-    //   clientSecret: env?.AUTH_GOOGLE_SECRET,
-    //   authorization: {
-    //     params: {
-    //       prompt: 'consent',
-    //       access_type: 'offline',
-    //       response_type: 'code',
-    //     },
-    //   },
-    // }),
+    GoogleProvider({
+      clientId: process.env.AUTH_GOOGLE_ID,
+      clientSecret: process.env.AUTH_GOOGLE_SECRET,
+      authorization: {
+        params: {
+          prompt: 'consent',
+          access_type: 'offline',
+          response_type: 'code',
+        },
+      },
+    }),
   ],
 })
