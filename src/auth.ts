@@ -22,16 +22,16 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       from: env?.EMAIL_FROM,
     }),
     GitHub,
-    GoogleProvider({
-      clientId: env?.AUTH_GOOGLE_ID,
-      clientSecret: env?.AUTH_GOOGLE_SECRET,
-      authorization: {
-        params: {
-          prompt: 'consent',
-          access_type: 'offline',
-          response_type: 'code',
-        },
-      },
-    }),
+    // GoogleProvider({
+    //   clientId: env?.AUTH_GOOGLE_ID,
+    //   clientSecret: env?.AUTH_GOOGLE_SECRET,
+    //   authorization: {
+    //     params: {
+    //       prompt: 'consent',
+    //       access_type: 'offline',
+    //       response_type: 'code',
+    //     },
+    //   },
+    // }),
   ],
 })
